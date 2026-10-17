@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>20/10 - Dành tặng bạn 🌷</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;font-family:Arial,sans-serif;
+ color:white;text-align:center;
+ background:linear-gradient(135deg,#ff758c,#ff7eb3,#a18cd1);
+ min-height:100vh;overflow-x:hidden
+}
+.page{
+ min-height:100vh;padding:35px 20px;
+ display:none;flex-direction:column;
+ align-items:center;justify-content:center;
+ animation:show .7s
+}
+.page.active{display:flex}
+h1{font-size:clamp(28px,7vw,48px)}
+p{font-size:19px;line-height:1.8;max-width:600px}
+.heart{font-size:65px;animation:beat 1s infinite}
+button{
+ border:0;border-radius:30px;padding:14px 24px;
+ margin:10px;background:#fff;color:#e84378;
+ font-size:16px;font-weight:bold;cursor:pointer
+}
+button:hover{transform:scale(1.06)}
+.card{
+ background:#ffffff25;border:1px solid #ffffff60;
+ border-radius:25px;padding:25px;max-width:650px;
+ width:100%;backdrop-filter:blur(10px)
+}
+@keyframes show{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes beat{50%{transform:scale(1.2)}}
+#music{position:fixed;top:12px;right:12px;z-index:5}
+small{opacity:.85}
+</style>
+</head>
+<body>
+
+<button id="music" onclick="toggleMusic()">🎵 Bật nhạc</button>
+
+<audio id="bgm" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<section class="page active">
+ <div class="card">
+  <div class="heart">💗</div>
+  <h1>Chúc mừng ngày 20/10</h1>
+  <p>Một món quà nhỏ chứa thật nhiều yêu thương 🌷</p>
+  <button onclick="next()">Mở món quà 🎁 →</button>
+ </div>
+</section>
+
+<section class="page">
+ <div class="card">
+  <h1>🌸 Trang 2 — Lời chúc</h1>
+  <p>Chúc bạn luôn vui vẻ, hạnh phúc và gặp thật nhiều điều may mắn trong cuộc sống.</p>
+  <button onclick="next()">Tiếp tục 💕 →</button>
+ </div>
+</section>
+
+<section class="page">
+ <div class="card">
+  <h1>🌷 Trang 3 — Nụ cười</h1>
+  <p>Mong rằng mỗi ngày của bạn đều có những lý do để mỉm cười và những người thật lòng yêu quý bạn.</p>
+  <div class="heart">😊</div>
+  <button onclick="next()">Trang tiếp theo →</button>
+ </div>
+</section>
+
+<section class="page">
+ <div class="card">
+  <h1>💌 Trang 4 — Điều muốn nói</h1>
+  <p>Cảm ơn bạn vì đã xuất hiện và khiến thế giới này trở nên đáng yêu hơn một chút.</p>
+  <button onclick="next()">Đọc tiếp 💖 →</button>
+ </div>
+</section>
+
+<section class="page">
+ <div class="card">
+  <h1>✨ Trang 5 — Điều ước</h1>
+  <p>Chúc mọi ước mơ của bạn dần thành hiện thực. Hãy luôn tin vào bản thân và những điều tốt đẹp nhé!</p>
+  <div class="heart">🌟</div>
+  <button onclick="next()">Còn một trang nữa →</button>
+ </div>
+</section>
+
+<section class="page">
+ <div class="card">
+  <div class="heart">💝</div>
+  <h1>Trang 6 — Món quà cuối</h1>
+  <p>Chúc bạn có một ngày 20/10 thật đáng nhớ. Luôn xinh tươi, bình an và hạnh phúc nhé! 🌹</p>
+  <p>💕 Gửi tặng bằng tất cả sự chân thành 💕</p>
+  <button onclick="restart()">↻ Xem lại từ đầu</button>
+ </div>
+ <small>Cảm ơn bạn đã xem đến cuối ❤️</small>
+</section>
+
+<script>
+let current=0;
+const pages=document.querySelectorAll('.page');
+function next(){
+ pages[current].classList.remove('active');
+ current=(current+1)%pages.length;
+ pages[current].classList.add('active');
+ window.scrollTo(0,0);
+}
+function restart(){
+ pages[current].classList.remove('active');
+ current=0;
+ pages[current].classList.add('active');
+}
+async function toggleMusic(){
+ const audio=document.getElementById('bgm');
+ const btn=document.getElementById('music');
+ if(audio.paused){
+  try{
+   await audio.play();
+   btn.textContent='🔊 Tắt nhạc';
+  }catch(e){
+   alert('Chưa có nhạc! Hãy thêm file music.mp3 vào cùng thư mục index.html nhé.');
+  }
+ }else{
+  audio.pause();
+  btn.textContent='🎵 Bật nhạc';
+ }
+}
+</script>
+</body>
+</html>
